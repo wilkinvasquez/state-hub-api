@@ -55,3 +55,4 @@ nunit-*.xml
 
 #
 .$ER.drawio.bkp
+.DS_Store
