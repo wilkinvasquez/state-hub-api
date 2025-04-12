@@ -56,3 +56,5 @@ nunit-*.xml
 #
 .$ER.drawio.bkp
 .DS_Store
+*.db-shm
+*.db-wal

@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen();
 
 string? connectionString = builder.Configuration.GetConnectionString("StateHub");
 
-builder.Services.AddDbContext<MainDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<MainDbContext>(options => options.UseSqlite(connectionString));
 
 //
 
