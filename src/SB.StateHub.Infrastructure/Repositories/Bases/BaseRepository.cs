@@ -60,6 +60,8 @@ namespace SB.StateHub.Infrastructure.Repositories.Bases
                 _context.Entry(entity).State = EntityState.Modified;
             }
 
+            await _context.SaveChangesAsync();
+
             return entity;
         }
 
@@ -74,6 +76,8 @@ namespace SB.StateHub.Infrastructure.Repositories.Bases
 
                 _context.Entry(entity).State = EntityState.Modified;
             }
+
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(Expression<Func<T, bool>> predicate)
@@ -87,6 +91,8 @@ namespace SB.StateHub.Infrastructure.Repositories.Bases
 
                 _context.Entry(entity).State = EntityState.Modified;
             }
+
+            await _context.SaveChangesAsync();
         }
     }
 }

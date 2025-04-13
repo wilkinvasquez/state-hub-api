@@ -23,6 +23,9 @@ namespace SB.StateHub.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Acronym")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Address")
                         .HasColumnType("TEXT");
 
@@ -63,9 +66,6 @@ namespace SB.StateHub.Infrastructure.Migrations
                     b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Acronym")
-                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("TEXT");
