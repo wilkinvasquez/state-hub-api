@@ -18,9 +18,9 @@ namespace SB.StateHub.API.Services.Bases
         public async Task<D> GetByIdAsync<D>(int id)
         {
             T? entity = await _baseRepository.GetByIdAsync(id);
-            D userDto = _mapper.Map<D>(entity);
+            D entityDto = _mapper.Map<D>(entity);
 
-            return userDto;
+            return entityDto;
         }
 
         public IEnumerable<D> GetAll<D>()
