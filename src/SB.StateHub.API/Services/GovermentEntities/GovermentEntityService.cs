@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SB.StateHub.API.DTOs.GovermentEntities;
 using SB.StateHub.API.DTOs.Pagination;
 using SB.StateHub.API.Services.Bases;
@@ -32,7 +33,9 @@ namespace SB.StateHub.API.Services.GovermentEntities
             PaginationResponseDto<GovermentEntityDto> paginationResponse = new PaginationResponseDto<GovermentEntityDto>
             {
                 Items = govermentEntities,
-                Total = _baseRepository.GetAll(filters).Count()
+                Total = _baseRepository
+                    .GetAll(filters)
+                    .Count()
             };
 
             return paginationResponse;

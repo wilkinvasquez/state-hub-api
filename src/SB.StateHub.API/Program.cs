@@ -11,6 +11,8 @@ using FluentValidation;
 using SB.StateHub.API.FluentValidation.Validators.GovermentEntityTypes;
 using SB.StateHub.API.Services.Results;
 using SB.StateHub.API.Services.GovermentEntities;
+using SB.StateHub.API.DTOs.GovermentEntities;
+using SB.StateHub.API.FluentValidation.Validators.GovermentEntities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,6 +54,7 @@ builder.Services.AddTransient(typeof(IGovermentEntityTypeRepository), typeof(Gov
 // Validators
 
 builder.Services.AddScoped<IValidator<CreateOrUpdateGovermentEntityTypeDto>, GovermentEntityTypeValidator>();
+builder.Services.AddScoped<IValidator<CreateOrUpdateGovermentEntityDto>, GovermentEntityValidator>();
 
 //
 
