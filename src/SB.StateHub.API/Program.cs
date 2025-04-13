@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using SB.StateHub.Domain.Repositories.Bases;
 using SB.StateHub.Infrastructure.Repositories.Bases;
 using SB.StateHub.Infrastructure.Contexts;
+using SB.StateHub.Domain.Repositories.GovermentEntityTypes;
+using SB.StateHub.Infrastructure.Repositories.GovermentEntityTypes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,7 @@ builder.Services.AddDbContext<MainDbContext>(options => options.UseSqlite(connec
 // Repositories
 
 builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+builder.Services.AddTransient(typeof(IGovermentEntityTypeRepository), typeof(GovermentEntityTypeRepository));
 
 //
 
