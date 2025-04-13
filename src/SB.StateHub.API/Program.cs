@@ -15,6 +15,7 @@ using SB.StateHub.API.DTOs.GovermentEntities;
 using SB.StateHub.API.FluentValidation.Validators.GovermentEntities;
 using SB.StateHub.Domain.Repositories.GovermentEntities;
 using SB.StateHub.Infrastructure.Repositories.GovermentEntities;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +59,20 @@ builder.Services.AddTransient(typeof(IGovermentEntityRepository), typeof(Goverme
 
 builder.Services.AddScoped<IValidator<CreateOrUpdateGovermentEntityTypeDto>, GovermentEntityTypeValidator>();
 builder.Services.AddScoped<IValidator<CreateOrUpdateGovermentEntityDto>, GovermentEntityValidator>();
+
+// Logs
+// Serilog
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .WriteTo.Console()
+    .WriteTo.File(
+        path: $"logs/log-{DateTime.Now:yyyy-MM-dd}.txt",
+        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level}] {Message}{NewLine}{Exception}"
+    )
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 //
 
