@@ -10,6 +10,7 @@ using SB.StateHub.API.DTOs.GovermentEntityTypes;
 using FluentValidation;
 using SB.StateHub.API.FluentValidation.Validators.GovermentEntityTypes;
 using SB.StateHub.API.Services.Results;
+using SB.StateHub.API.Services.GovermentEntities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddTransient(typeof(IBaseService<>), typeof(BaseService<>));
 builder.Services.AddTransient<IGovermentEntityTypeService, GovermentEntityTypeService>();
+builder.Services.AddTransient<IGovermentEntityService, GovermentEntityService>();
 
 // Results
 

@@ -11,7 +11,7 @@ using SB.StateHub.Infrastructure.Contexts;
 namespace SB.StateHub.Infrastructure.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    [Migration("20250413160229_Initial")]
+    [Migration("20250413182412_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

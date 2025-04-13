@@ -7,7 +7,7 @@ namespace SB.StateHub.API.FluentValidation.Validators.GovermentEntityTypes
     {
         public GovermentEntityTypeValidator()
         {
-            RuleFor(hot => hot.Name).NotEmpty().WithMessage("Name is required");
+            RuleFor(get => get.Name).NotEmpty().WithMessage("Name is required");
         }
     }
 }

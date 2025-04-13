@@ -10,10 +10,13 @@ namespace SB.StateHub.Infrastructure.Contexts.Configurations.GovermentEntities
         {
             builder
                 .ToTable("GovermentEntities")
-                .HasKey(ett => ett.Id);
+                .HasKey(gen => gen.Id);
 
             builder
-                .Property(ett => ett.Name)
+                .HasOne(gen => gen.EntityType);
+
+            builder
+                .Property(gen => gen.Name)
                 .IsRequired();
         }
     }
