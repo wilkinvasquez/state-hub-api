@@ -1,36 +1,36 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using SB.StateHub.API.DTOs.GovermentEntityTypes;
+using SB.StateHub.API.DTOs.GovermentEntities;
 using SB.StateHub.API.DTOs.Pagination;
 using SB.StateHub.API.DTOs.Results;
-using SB.StateHub.API.Services.GovermentEntityTypes;
+using SB.StateHub.API.Services.GovermentEntities;
 using SB.StateHub.API.Services.Results;
 
 namespace SB.StateHub.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class GovermentEntityTypesController : ControllerBase
+    public class GovermentEntityController : ControllerBase
     {
-        private readonly IValidator<CreateOrUpdateGovermentEntityTypeDto> _validator;
+        private readonly IValidator<CreateOrUpdateGovermentEntityDto> _validator;
         private readonly IResultService _resultService;
-        private readonly IGovermentEntityTypeService _govermentEntityTypeService;
+        private readonly IGovermentEntityService _govermentEntityService;
 
-        public GovermentEntityTypesController(IValidator<CreateOrUpdateGovermentEntityTypeDto> validator, IResultService resultService, IGovermentEntityTypeService govermentEntityTypeService)
+        public GovermentEntityController(IValidator<CreateOrUpdateGovermentEntityDto> validator, IResultService resultService, IGovermentEntityService govermentEntityService)
         {
             _validator = validator;
             _resultService = resultService;
-            _govermentEntityTypeService = govermentEntityTypeService;
+            _govermentEntityService = govermentEntityService;
         }
 
-        // GET: api/<GovermentEntityTypesController>
+        // GET: api/<GovermentEntityController>
         [HttpGet]
         public ResultDto Get()
         {
             try
             {
-                IEnumerable<GovermentEntityTypeDto> govermentEntityTypes = _govermentEntityTypeService.GetAll<GovermentEntityTypeDto>();
-                return _resultService.CreateSuccessResult(govermentEntityTypes);
+                IEnumerable<GovermentEntityDto> govermentEntity = _govermentEntityService.GetAll<GovermentEntityDto>();
+                return _resultService.CreateSuccessResult(govermentEntity);
             }
             catch (Exception ex)
             {
@@ -38,14 +38,14 @@ namespace SB.StateHub.API.Controllers
             }
         }
 
-        // GET api/<GovermentEntityTypesController>/5
+        // GET api/<GovermentEntityController>/5
         [HttpGet("{id}")]
         public async Task<ResultDto> Get(int id)
         {
             try
             {
-                GovermentEntityTypeDto govermentEntityType = await _govermentEntityTypeService.GetByIdAsync<GovermentEntityTypeDto>(id);
-                return _resultService.CreateSuccessResult(govermentEntityType);
+                GovermentEntityDto govermentEntity = await _govermentEntityService.GetByIdAsync<GovermentEntityDto>(id);
+                return _resultService.CreateSuccessResult(govermentEntity);
             }
             catch (Exception ex)
             {
@@ -53,15 +53,15 @@ namespace SB.StateHub.API.Controllers
             }
         }
 
-        // GET api/<GovermentEntityTypesController>
+        // GET api/<GovermentEntityController>
         [HttpGet("pagination")]
         public ResultDto GetAll([FromQuery] PaginationDto parameters)
         {
             try
             {
-                PaginationResponseDto<GovermentEntityTypeDto> govermentEntityTypes = _govermentEntityTypeService.GetAllPagedGovermentEntityTypes(parameters);
+                PaginationResponseDto<GovermentEntityDto> govermentEntity = _govermentEntityService.GetAllPagedGovermentEntities(parameters);
 
-                return _resultService.CreateSuccessResult(govermentEntityTypes);
+                return _resultService.CreateSuccessResult(govermentEntity);
             }
             catch (Exception ex)
             {
@@ -69,13 +69,13 @@ namespace SB.StateHub.API.Controllers
             }
         }
 
-        // POST api/<GovermentEntityTypesController>
+        // POST api/<GovermentEntityController>
         [HttpPost]
-        public async Task<ResultDto> Post([FromBody] CreateOrUpdateGovermentEntityTypeDto govermentEntityType)
+        public async Task<ResultDto> Post([FromBody] CreateOrUpdateGovermentEntityDto govermentEntity)
         {
             try
             {
-                var validation = _validator.Validate(govermentEntityType);
+                var validation = _validator.Validate(govermentEntity);
 
                 if (!validation.IsValid)
                 {
@@ -83,8 +83,8 @@ namespace SB.StateHub.API.Controllers
                     return _resultService.CreateErrorResult(errors);
                 }
 
-                CreateOrUpdateGovermentEntityTypeDto createdOrUpdatedGovermentEntityType = await _govermentEntityTypeService.CreateOrUpdateAsync(govermentEntityType);
-                return _resultService.CreateSuccessResult(createdOrUpdatedGovermentEntityType);
+                CreateOrUpdateGovermentEntityDto createdOrUpdatedGovermentEntity = await _govermentEntityService.CreateOrUpdateAsync(govermentEntity);
+                return _resultService.CreateSuccessResult(createdOrUpdatedGovermentEntity);
             }
             catch (Exception ex)
             {
@@ -92,13 +92,13 @@ namespace SB.StateHub.API.Controllers
             }
         }
 
-        // DELETE api/<GovermentEntityTypesController>/5
+        // DELETE api/<GovermentEntityController>/5
         [HttpDelete("{id}")]
         public async Task<ResultDto> Delete(int id)
         {
             try
             {
-                await _govermentEntityTypeService.DeleteAsync(id);
+                await _govermentEntityService.DeleteAsync(id);
                 return _resultService.CreateSuccessResult();
             }
             catch (Exception ex)

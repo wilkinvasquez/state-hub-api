@@ -24,14 +24,14 @@ namespace SB.StateHub.API.Services.GovermentEntityTypes
                 p.Description!.ToLower().Trim().Contains(filter) ||
                 parameters.Filter.Trim() == "";
 
-            IEnumerable<GovermentEntityType> hostsCollection = _baseRepository
+            IEnumerable<GovermentEntityType> govermentEntitiesCollection = _baseRepository
                 .GetAllPaged(parameters.PageNumber, parameters.PageSize, filters);
 
-            IEnumerable<GovermentEntityTypeDto> hosts = _mapper.Map<IEnumerable<GovermentEntityTypeDto>>(hostsCollection);
+            IEnumerable<GovermentEntityTypeDto> govermentEntities = _mapper.Map<IEnumerable<GovermentEntityTypeDto>>(govermentEntitiesCollection);
 
             PaginationResponseDto<GovermentEntityTypeDto> paginationResponse = new PaginationResponseDto<GovermentEntityTypeDto>
             {
-                Items = hosts,
+                Items = govermentEntities,
                 Total = _baseRepository.GetAll(filters).Count()
             };
 
