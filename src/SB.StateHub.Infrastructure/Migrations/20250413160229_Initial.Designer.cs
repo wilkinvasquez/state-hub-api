@@ -11,7 +11,7 @@ using SB.StateHub.Infrastructure.Contexts;
 namespace SB.StateHub.Infrastructure.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    [Migration("20250412235034_Initial")]
+    [Migration("20250413160229_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -25,6 +25,9 @@ namespace SB.StateHub.Infrastructure.Migrations
                     b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Acronym")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Address")
                         .HasColumnType("TEXT");
@@ -66,9 +69,6 @@ namespace SB.StateHub.Infrastructure.Migrations
                     b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Acronym")
-                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("TEXT");

@@ -4,6 +4,12 @@ using SB.StateHub.Infrastructure.Repositories.Bases;
 using SB.StateHub.Infrastructure.Contexts;
 using SB.StateHub.Domain.Repositories.GovermentEntityTypes;
 using SB.StateHub.Infrastructure.Repositories.GovermentEntityTypes;
+using SB.StateHub.API.Services.Bases;
+using SB.StateHub.API.Services.GovermentEntityTypes;
+using SB.StateHub.API.DTOs.GovermentEntityTypes;
+using FluentValidation;
+using SB.StateHub.API.FluentValidation.Validators.GovermentEntityTypes;
+using SB.StateHub.API.Services.Results;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,16 +18,38 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Controllers
+
+builder.Services.AddControllers();
+
 // DbContexts
 
 string? connectionString = builder.Configuration.GetConnectionString("StateHub");
 
 builder.Services.AddDbContext<MainDbContext>(options => options.UseSqlite(connectionString));
 
+// Automapper
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+// Services
+
+builder.Services.AddTransient(typeof(IBaseService<>), typeof(BaseService<>));
+builder.Services.AddTransient<IGovermentEntityTypeService, GovermentEntityTypeService>();
+
+// Results
+
+builder.Services.AddTransient<IResultService, ResultService>();
+
 // Repositories
 
 builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddTransient(typeof(IGovermentEntityTypeRepository), typeof(GovermentEntityTypeRepository));
+
+// Fluent validation
+// Validators
+
+builder.Services.AddScoped<IValidator<CreateOrUpdateGovermentEntityTypeDto>, GovermentEntityTypeValidator>();
 
 //
 
@@ -35,4 +63,5 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.MapControllers();
 app.Run();
