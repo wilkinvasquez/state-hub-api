@@ -1,5 +1,7 @@
-using SB.StateHub.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
+using SB.StateHub.Domain.Repositories.Bases;
+using SB.StateHub.Infrastructure.Repositories.Bases;
+using SB.StateHub.Infrastructure.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,10 @@ builder.Services.AddSwaggerGen();
 string? connectionString = builder.Configuration.GetConnectionString("StateHub");
 
 builder.Services.AddDbContext<MainDbContext>(options => options.UseSqlite(connectionString));
+
+// Repositories
+
+builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
 //
 
