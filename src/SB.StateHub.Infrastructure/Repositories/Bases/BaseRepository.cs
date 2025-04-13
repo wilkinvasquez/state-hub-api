@@ -15,26 +15,26 @@ namespace SB.StateHub.Infrastructure.Repositories.Bases
             _context = context;
         }
 
-        public Task<T?> GetByIdAsync(int? id)
+        public virtual Task<T?> GetByIdAsync(int? id)
         {
             return _context.Set<T>().Where(t => t.IsDeleted == false).FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        public IQueryable<T> GetAll()
+        public virtual IQueryable<T> GetAll()
         {
             IQueryable<T> entities = _context.Set<T>().Where(t => t.IsDeleted == false);
 
             return entities;
         }
 
-        public IQueryable<T> GetAll(Expression<Func<T, bool>> predicate)
+        public virtual IQueryable<T> GetAll(Expression<Func<T, bool>> predicate)
         {
             IQueryable<T> entities = _context.Set<T>().Where(t => t.IsDeleted == false).Where(predicate);
 
             return entities;
         }
 
-        public IQueryable<T> GetAllPaged(int pageNumber, int pageSize, Expression<Func<T, bool>> predicate)
+        public virtual IQueryable<T> GetAllPaged(int pageNumber, int pageSize, Expression<Func<T, bool>> predicate)
         {
             IQueryable<T> entities = _context
                 .Set<T>()

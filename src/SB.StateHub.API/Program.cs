@@ -13,6 +13,8 @@ using SB.StateHub.API.Services.Results;
 using SB.StateHub.API.Services.GovermentEntities;
 using SB.StateHub.API.DTOs.GovermentEntities;
 using SB.StateHub.API.FluentValidation.Validators.GovermentEntities;
+using SB.StateHub.Domain.Repositories.GovermentEntities;
+using SB.StateHub.Infrastructure.Repositories.GovermentEntities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +51,7 @@ builder.Services.AddTransient<IResultService, ResultService>();
 
 builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddTransient(typeof(IGovermentEntityTypeRepository), typeof(GovermentEntityTypeRepository));
+builder.Services.AddTransient(typeof(IGovermentEntityRepository), typeof(GovermentEntityRepository));
 
 // Fluent validation
 // Validators

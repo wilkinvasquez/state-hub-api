@@ -7,6 +7,8 @@ namespace SB.StateHub.API.Services.GovermentEntities
 {
     public interface IGovermentEntityService : IBaseService<GovermentEntity>
     {
+        Task<GovermentEntityDto> GetByIdAsync(int id);
+        IEnumerable<GovermentEntityDto> GetAll();
         PaginationResponseDto<GovermentEntityDto> GetAllPagedGovermentEntities(PaginationDto parameters);
     }
 }

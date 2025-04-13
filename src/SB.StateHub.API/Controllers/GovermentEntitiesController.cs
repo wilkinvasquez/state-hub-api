@@ -29,7 +29,7 @@ namespace SB.StateHub.API.Controllers
         {
             try
             {
-                IEnumerable<GovermentEntityDto> govermentEntity = _govermentEntityService.GetAll<GovermentEntityDto>();
+                IEnumerable<GovermentEntityDto> govermentEntity = _govermentEntityService.GetAll();
                 return _resultService.CreateSuccessResult(govermentEntity);
             }
             catch (Exception ex)
@@ -44,7 +44,7 @@ namespace SB.StateHub.API.Controllers
         {
             try
             {
-                GovermentEntityDto govermentEntity = await _govermentEntityService.GetByIdAsync<GovermentEntityDto>(id);
+                GovermentEntityDto govermentEntity = await _govermentEntityService.GetByIdAsync(id);
                 return _resultService.CreateSuccessResult(govermentEntity);
             }
             catch (Exception ex)
