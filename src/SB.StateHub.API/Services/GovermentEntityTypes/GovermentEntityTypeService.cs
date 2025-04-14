@@ -15,7 +15,7 @@ namespace SB.StateHub.API.Services.GovermentEntityTypes
 
         }
 
-         public PaginationResponseDto<GovermentEntityTypeDto> GetAllPagedGovermentEntityTypes(PaginationDto parameters)
+        public PaginationResponseDto<GovermentEntityTypeDto> GetAllPagedGovermentEntityTypes(PaginationDto parameters)
         {
             string filter = parameters.Filter.ToLower().Trim();
 
