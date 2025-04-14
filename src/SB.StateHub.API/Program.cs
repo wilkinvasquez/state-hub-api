@@ -16,6 +16,8 @@ using SB.StateHub.API.FluentValidation.Validators.GovermentEntities;
 using SB.StateHub.Domain.Repositories.GovermentEntities;
 using SB.StateHub.Infrastructure.Repositories.GovermentEntities;
 using Serilog;
+using SB.StateHub.Domain.Repositories.Users;
+using SB.StateHub.Infrastructure.Repositories.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,6 +55,7 @@ builder.Services.AddTransient<IResultService, ResultService>();
 builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddTransient(typeof(IGovermentEntityTypeRepository), typeof(GovermentEntityTypeRepository));
 builder.Services.AddTransient(typeof(IGovermentEntityRepository), typeof(GovermentEntityRepository));
+builder.Services.AddTransient(typeof(IUserRepository), typeof(UserRepository));
 
 // Fluent validation
 // Validators
