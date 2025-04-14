@@ -11,7 +11,7 @@ using SB.StateHub.Infrastructure.Contexts;
 namespace SB.StateHub.Infrastructure.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    [Migration("20250413182412_Initial")]
+    [Migration("20250414000014_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -39,6 +39,7 @@ namespace SB.StateHub.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("EntityTypeId")
@@ -92,6 +93,51 @@ namespace SB.StateHub.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("GovermentEntityTypes", (string)null);
+                });
+
+            modelBuilder.Entity("SB.StateHub.Domain.Entities.Users.User", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Lastname")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Mail")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("SB.StateHub.Domain.Entities.GovermentEntities.GovermentEntity", b =>

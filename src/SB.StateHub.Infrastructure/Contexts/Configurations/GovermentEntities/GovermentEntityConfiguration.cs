@@ -18,6 +18,10 @@ namespace SB.StateHub.Infrastructure.Contexts.Configurations.GovermentEntities
             builder
                 .Property(gen => gen.Name)
                 .IsRequired();
+
+            builder
+                .Property(gen => gen.Description)
+                .IsRequired();
         }
     }
 }
