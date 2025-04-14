@@ -18,6 +18,9 @@ using SB.StateHub.Infrastructure.Repositories.GovermentEntities;
 using Serilog;
 using SB.StateHub.Domain.Repositories.Users;
 using SB.StateHub.Infrastructure.Repositories.Users;
+using SB.StateHub.API.Services.Users;
+using SB.StateHub.API.DTOs.Users;
+using SB.StateHub.API.FluentValidation.Validators.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +48,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddTransient(typeof(IBaseService<>), typeof(BaseService<>));
 builder.Services.AddTransient<IGovermentEntityTypeService, GovermentEntityTypeService>();
 builder.Services.AddTransient<IGovermentEntityService, GovermentEntityService>();
+builder.Services.AddTransient<IUserService, UserService>();
 
 // Results
 
@@ -53,15 +57,16 @@ builder.Services.AddTransient<IResultService, ResultService>();
 // Repositories
 
 builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-builder.Services.AddTransient(typeof(IGovermentEntityTypeRepository), typeof(GovermentEntityTypeRepository));
-builder.Services.AddTransient(typeof(IGovermentEntityRepository), typeof(GovermentEntityRepository));
-builder.Services.AddTransient(typeof(IUserRepository), typeof(UserRepository));
+builder.Services.AddTransient<IGovermentEntityTypeRepository, GovermentEntityTypeRepository>();
+builder.Services.AddTransient<IGovermentEntityRepository, GovermentEntityRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
 
 // Fluent validation
 // Validators
 
 builder.Services.AddScoped<IValidator<CreateOrUpdateGovermentEntityTypeDto>, GovermentEntityTypeValidator>();
 builder.Services.AddScoped<IValidator<CreateOrUpdateGovermentEntityDto>, GovermentEntityValidator>();
+builder.Services.AddScoped<IValidator<CreateOrUpdateUserDto>, UserValidator>();
 
 // Logs
 // Serilog

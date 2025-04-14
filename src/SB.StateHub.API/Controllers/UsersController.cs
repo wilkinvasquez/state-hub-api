@@ -1,36 +1,36 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using SB.StateHub.API.DTOs.GovermentEntityTypes;
+using SB.StateHub.API.DTOs.Users;
 using SB.StateHub.API.DTOs.Pagination;
 using SB.StateHub.API.DTOs.Results;
-using SB.StateHub.API.Services.GovermentEntityTypes;
+using SB.StateHub.API.Services.Users;
 using SB.StateHub.API.Services.Results;
 
 namespace SB.StateHub.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class GovermentEntityTypesController : ControllerBase
+    public class UsersController : ControllerBase
     {
-        private readonly IValidator<CreateOrUpdateGovermentEntityTypeDto> _validator;
+        private readonly IValidator<CreateOrUpdateUserDto> _validator;
         private readonly IResultService _resultService;
-        private readonly IGovermentEntityTypeService _govermentEntityTypeService;
+        private readonly IUserService _userService;
 
-        public GovermentEntityTypesController(IValidator<CreateOrUpdateGovermentEntityTypeDto> validator, IResultService resultService, IGovermentEntityTypeService govermentEntityTypeService)
+        public UsersController(IValidator<CreateOrUpdateUserDto> validator, IResultService resultService, IUserService userService)
         {
             _validator = validator;
             _resultService = resultService;
-            _govermentEntityTypeService = govermentEntityTypeService;
+            _userService = userService;
         }
 
-        // GET: api/<GovermentEntityTypesController>
+        // GET: api/<UserController>
         [HttpGet]
         public ResultDto Get()
         {
             try
             {
-                IEnumerable<GovermentEntityTypeDto> govermentEntityTypes = _govermentEntityTypeService.GetAll<GovermentEntityTypeDto>();
-                return _resultService.CreateSuccessResult(govermentEntityTypes);
+                IEnumerable<UserDto> users = _userService.GetAll<UserDto>();
+                return _resultService.CreateSuccessResult(users);
             }
             catch (Exception ex)
             {
@@ -38,14 +38,14 @@ namespace SB.StateHub.API.Controllers
             }
         }
 
-        // GET api/<GovermentEntityTypesController>/5
+        // GET api/<UserController>/5
         [HttpGet("{id}")]
         public async Task<ResultDto> Get(int id)
         {
             try
             {
-                GovermentEntityTypeDto govermentEntityType = await _govermentEntityTypeService.GetByIdAsync<GovermentEntityTypeDto>(id);
-                return _resultService.CreateSuccessResult(govermentEntityType);
+                UserDto user = await _userService.GetByIdAsync<UserDto>(id);
+                return _resultService.CreateSuccessResult(user);
             }
             catch (Exception ex)
             {
@@ -53,13 +53,13 @@ namespace SB.StateHub.API.Controllers
             }
         }
 
-        // GET api/<GovermentEntityTypesController>
+        // GET api/<UserController>
         [HttpGet("pagination")]
         public ResultDto GetAll([FromQuery] PaginationDto parameters)
         {
             try
             {
-                PaginationResponseDto<GovermentEntityTypeDto> paginationResponse = _govermentEntityTypeService.GetAllPagedGovermentEntityTypes(parameters);
+                PaginationResponseDto<UserDto> paginationResponse = _userService.GetAllPagedUsers(parameters);
 
                 return _resultService.CreateSuccessResult(paginationResponse);
             }
@@ -69,13 +69,13 @@ namespace SB.StateHub.API.Controllers
             }
         }
 
-        // POST api/<GovermentEntityTypesController>
+        // POST api/<UserController>
         [HttpPost]
-        public async Task<ResultDto> Post([FromBody] CreateOrUpdateGovermentEntityTypeDto govermentEntityType)
+        public async Task<ResultDto> Post([FromBody] CreateOrUpdateUserDto user)
         {
             try
             {
-                var validation = _validator.Validate(govermentEntityType);
+                var validation = _validator.Validate(user);
 
                 if (!validation.IsValid)
                 {
@@ -83,8 +83,8 @@ namespace SB.StateHub.API.Controllers
                     return _resultService.CreateErrorResult(errors);
                 }
 
-                CreateOrUpdateGovermentEntityTypeDto createdOrUpdatedGovermentEntityType = await _govermentEntityTypeService.CreateOrUpdateAsync(govermentEntityType);
-                return _resultService.CreateSuccessResult(createdOrUpdatedGovermentEntityType);
+                CreateOrUpdateUserDto createdOrUpdatedUser = await _userService.CreateOrUpdateAsync(user);
+                return _resultService.CreateSuccessResult(createdOrUpdatedUser);
             }
             catch (Exception ex)
             {
@@ -92,13 +92,13 @@ namespace SB.StateHub.API.Controllers
             }
         }
 
-        // DELETE api/<GovermentEntityTypesController>/5
+        // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
         public async Task<ResultDto> Delete(int id)
         {
             try
             {
-                await _govermentEntityTypeService.DeleteAsync(id);
+                await _userService.DeleteAsync(id);
                 return _resultService.CreateSuccessResult();
             }
             catch (Exception ex)

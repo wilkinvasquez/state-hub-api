@@ -10,13 +10,13 @@ namespace SB.StateHub.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class GovermentEntityController : ControllerBase
+    public class GovermentEntitiesController : ControllerBase
     {
         private readonly IValidator<CreateOrUpdateGovermentEntityDto> _validator;
         private readonly IResultService _resultService;
         private readonly IGovermentEntityService _govermentEntityService;
 
-        public GovermentEntityController(IValidator<CreateOrUpdateGovermentEntityDto> validator, IResultService resultService, IGovermentEntityService govermentEntityService)
+        public GovermentEntitiesController(IValidator<CreateOrUpdateGovermentEntityDto> validator, IResultService resultService, IGovermentEntityService govermentEntityService)
         {
             _validator = validator;
             _resultService = resultService;
@@ -29,8 +29,8 @@ namespace SB.StateHub.API.Controllers
         {
             try
             {
-                IEnumerable<GovermentEntityDto> govermentEntity = _govermentEntityService.GetAll();
-                return _resultService.CreateSuccessResult(govermentEntity);
+                IEnumerable<GovermentEntityDto> govermentEntities = _govermentEntityService.GetAll();
+                return _resultService.CreateSuccessResult(govermentEntities);
             }
             catch (Exception ex)
             {
@@ -59,9 +59,9 @@ namespace SB.StateHub.API.Controllers
         {
             try
             {
-                PaginationResponseDto<GovermentEntityDto> govermentEntity = _govermentEntityService.GetAllPagedGovermentEntities(parameters);
+                PaginationResponseDto<GovermentEntityDto> paginationResponse = _govermentEntityService.GetAllPagedGovermentEntities(parameters);
 
-                return _resultService.CreateSuccessResult(govermentEntity);
+                return _resultService.CreateSuccessResult(paginationResponse);
             }
             catch (Exception ex)
             {
