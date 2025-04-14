@@ -1,5 +1,6 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using SB.StateHub.API.Authorization.Attributes;
 using SB.StateHub.API.DTOs.GovermentEntityTypes;
 using SB.StateHub.API.DTOs.Pagination;
 using SB.StateHub.API.DTOs.Results;
@@ -8,6 +9,7 @@ using SB.StateHub.API.Services.Results;
 
 namespace SB.StateHub.API.Controllers
 {
+    [ApiAuthorize]
     [ApiController]
     [Route("api/[controller]")]
     public class GovermentEntityTypesController : ControllerBase
