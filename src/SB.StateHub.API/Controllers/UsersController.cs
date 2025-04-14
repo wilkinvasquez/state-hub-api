@@ -5,9 +5,12 @@ using SB.StateHub.API.DTOs.Pagination;
 using SB.StateHub.API.DTOs.Results;
 using SB.StateHub.API.Services.Users;
 using SB.StateHub.API.Services.Results;
+using SB.StateHub.API.Authorization.Attributes;
+using SB.StateHub.API.DTOs.Authentications;
 
 namespace SB.StateHub.API.Controllers
 {
+    [ApiAuthorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
@@ -70,6 +73,7 @@ namespace SB.StateHub.API.Controllers
         }
 
         // POST api/<UserController>
+        [ApiAnonymous]
         [HttpPost]
         public async Task<ResultDto> Post([FromBody] CreateOrUpdateUserDto user)
         {
@@ -83,7 +87,8 @@ namespace SB.StateHub.API.Controllers
                     return _resultService.CreateErrorResult(errors);
                 }
 
-                CreateOrUpdateUserDto createdOrUpdatedUser = await _userService.CreateOrUpdateAsync(user);
+                UserDto createdOrUpdatedUser = await _userService.CreateOrUpdateUserAsync(user);
+
                 return _resultService.CreateSuccessResult(createdOrUpdatedUser);
             }
             catch (Exception ex)
@@ -105,6 +110,16 @@ namespace SB.StateHub.API.Controllers
             {
                 return _resultService.CreateErrorResult(ex.Message.ToString());
             }
+        }
+
+        
+        // POST api/<UsersController/authentication>
+        [ApiAnonymous]
+        [HttpPost("authentication/[controller]")]
+        public async Task<ResultDto> Authentication(AuthenticationDto authentication)
+        {
+            AuthenticationResultDto result = await _userService.AuthenticateAsync(authentication);
+            return _resultService.CreateSuccessResult(result);
         }
     }
 }
