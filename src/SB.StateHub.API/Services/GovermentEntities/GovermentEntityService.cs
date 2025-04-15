@@ -45,6 +45,9 @@ namespace SB.StateHub.API.Services.GovermentEntities
             Expression<Func<GovermentEntity, bool>> filters = p =>
                 p.Name!.ToLower().Trim().Contains(filter) ||
                 p.Description!.ToLower().Trim().Contains(filter) ||
+                p.Acronym!.ToLower().Trim().Contains(filter) ||
+                p.Address!.ToLower().Trim().Contains(filter) ||
+                p.Phone!.ToLower().Trim().Contains(filter) ||
                 parameters.Filter.Trim() == "";
 
             IEnumerable<GovermentEntity> govermentEntitiesCollection = _govermentEntityRepository
