@@ -115,7 +115,7 @@ namespace SB.StateHub.API.Controllers
         
         // POST api/<UsersController/authentication>
         [ApiAnonymous]
-        [HttpPost("authentication/[controller]")]
+        [HttpPost("authentication")]
         public async Task<ResultDto> Authentication(AuthenticationDto authentication)
         {
             AuthenticationResultDto result = await _userService.AuthenticateAsync(authentication);
