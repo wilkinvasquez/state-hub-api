@@ -18,7 +18,7 @@ Then run:
 
 ## Using Entity Framework command line tool
 
-**_`dotnet tool install --global dotnet-ef`_**
+**_`dotnet tool install --global dotnet-ef --version 8.0.3`_**
 
 ### Add migration
 
